@@ -1,14 +1,26 @@
 
+
 @extends('layouts.app')
 
 @section('title') Create @endsection
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{route('posts.store')}}" method="POST">
         @csrf
         <div class="mb-3">
             <label class="form-label">Title</label>
-            <input name="title" type="text" class="form-control" >
+            <input name="title" type="text" class="form-control">
         </div>
         <div class="mb-3">
             <label class="form-label">Description</label>
@@ -16,10 +28,13 @@
         </div>
         <div class="mb-3 ">
             <label class="form-label" for="exampleCheck1">Post Creator</label>
-            <select name="post_creator" class="form-control">
-                <option>Ahmed</option>
+            <select name="user_id" class="form-control">
+               @foreach($users as $user)
+               
+                   <option value="{{$user->id}}">{{$user->id}}</option>
+               @endforeach
             </select>
-        </div>
+        </div> 
         <button type="submit" class="btn btn-success">Create</button>
     </form>
 @endsection

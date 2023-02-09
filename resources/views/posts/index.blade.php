@@ -19,20 +19,49 @@
         </thead>
         <tbody>
         @foreach($userPosts as $post)
+    
         <tr>
-            <td>{{$post['Id']}}</td>
-            <td>{{$post['Title']}}</td>
-            <td>{{$post['Posted_by']}}</td>
-            <td>{{$post['Created_at']}}</td>
+            <td>{{$post->id}}</td>
+            <td>{{$post->title}}</td>
+            <td value="{{$post->user->name}}">{{$post->user->name}}</td>
+            <td>{{$post['created_at']}}</td>
+           
             <td>
-                <a href="{{route('posts.show',$post['Id'])}}" class="btn btn-info">View</a>
-                <a href="{{route('posts.update')}}" class="btn btn-primary">Edit</a>
+                <a href="{{route('posts.show',$post['id'])}}" class="btn btn-info">View</a>
+                <a href="{{route('posts.edit',$post['id'])}}" class="btn btn-primary">Edit</a>
                 
-                <a href="{{route('posts.destroy'),$post['Id']}}" class="btn btn-danger delete " data-confirm="Are you sure to delete this item?">Delete</a>
+                <a href="{{route('posts.delete',$post['id'])}}" class="btn btn-danger delete " data-confirm="Are you sure to delete this item?" data-toggle="modal" data-target="#exampleModalCenter">Delete</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+  Launch demo modal
+   </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
             </td>
         </tr>
+      
         @endforeach
         </tbody>
+  
     </table>
     <script>
     var deleteLinks = document.querySelectorAll('.delete');
